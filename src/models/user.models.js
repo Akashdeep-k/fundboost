@@ -42,14 +42,16 @@ const userSchema = mongoose.Schema({
             message: `Password should not contain "password"`
         }
     },
-    role: {
-        type: String,
-        enum: ["USER", "ADMIN"],
-        default: "USER"
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
-    refreshToken: {
-        type: String
-    }
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }],
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
@@ -67,10 +69,11 @@ userSchema.methods.isPasswordMatch = async function (enteredPassword) {
 userSchema.methods.toJSON = function () {
     const userObject = this.toObject();
     
-    delete userObject._id;
     delete userObject.password;
-    delete userObject.refreshToken;
     delete userObject.__v;
+    delete userObject.createdAt;
+    delete userObject.updatedAt;
+    delete userObject.tokens;
 
     return userObject;
 }
