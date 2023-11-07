@@ -13,7 +13,12 @@ const fundraiserSchema = mongoose.Schema({
         trim: true,
         minlength: 5
     },
-    funraiserReason: {
+    location: {
+        type: String,
+        required: true,
+
+    },
+    genre: {
         type: String,
         required: true,
         enum: ["Medical", "Travel", "Education", "Sports", "Family", "Emergencies", "Other"]
@@ -27,15 +32,25 @@ const fundraiserSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    photo: {
+    photoUrl: {
         type: String,
-        required: true
+        default: "http://res.cloudinary.com/duhdg3btj/image/upload/v1699264322/tolia398cdxspwlnjzjn.png"
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 }, { timestamps: true });
+
+fundraiserSchema.methods.toJSON = function () {
+    const fundraiserObj = this.toObject();
+
+    delete fundraiserObj.createdAt;
+    delete fundraiserObj.updatedAt;
+    delete fundraiserObj.__v;
+
+    return fundraiserObj;
+}
 
 const Fundraiser = mongoose.model("Fundraiser", fundraiserSchema);
 

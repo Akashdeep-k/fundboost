@@ -9,9 +9,10 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const { notFoundError, responseError } = require("./middlewares/error.js");
-const { checkAuth } = require("./middlewares/authentication.js");
+const { auth, checkAuth } = require("./middlewares/authentication.js");
 
 const userRouter = require("./routes/user.routes.js");
+const fundraiserRouter = require("./routes/fundraiser.routes.js");
 
 ; (async () => {
     try {
@@ -27,6 +28,7 @@ const userRouter = require("./routes/user.routes.js");
         app.use(checkAuth()); // Checks if a user is authenticated
 
         app.use(`${API_VERSION}/user`, userRouter);
+        app.use(`${API_VERSION}/fundraiser`, fundraiserRouter);
 
         app.use(notFoundError); // Handles invalid URLs by generating a 404 error.
         app.use(responseError); // Handles and responds with error details.
@@ -36,6 +38,6 @@ const userRouter = require("./routes/user.routes.js");
         });
     } catch (e) {
         console.log(e);
-        process.exit();
+        process.exit(1);
     }
 })();
