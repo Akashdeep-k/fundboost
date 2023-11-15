@@ -1,0 +1,27 @@
+.homebg {
+    /* position: relative;
+    width: 100%;
+    height: 100%; */
+    background: rgba(216, 148, 2, 0.5);
+    background: linear-gradient(180deg, rgba(212, 249, 4, 0.15) 85%, rgba(252, 253, 253, 0.2) 100%);
+}
+
+.campaign_card_bg {
+    background: rgba(216, 148, 2, 0.5);
+    background: linear-gradient(0deg, rgba(245, 245, 220) 85%, rgba(252, 253, 253, 0.2) 100%);
+}
+
+/* .homebg::before {
+    content: "";
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url(../assets/joyful.webp);
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: bottom;
+     filter: blur(2px); 
+    filter: opacity(80%);
+} */
